@@ -1,0 +1,10 @@
+@charset "utf-8";
+#shibai,
+#chenggong {
+    display: none;
+}
+
+.list-group {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}

@@ -13,6 +13,8 @@
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "formidable": "^1.0.17",
-    "jquery": "^3.1.1"
+    "jquery": "^3.1.1",
+    "mongodb": "^2.2.16",
+    "underscore": "^1.8.3"
   }
 }
