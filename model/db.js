@@ -36,7 +36,7 @@ exports.find = function(collectionName, json, C, D) {
         var args = C;
         var callback = D;
         var limitNum = parseInt(args.pageNum);
-        var skipNum = limitNum * args.page;
+        var skipNum = limitNum * parseInt(args.page);
         var sort = args.sort || {};
         //上面这些要用var定义用let定义不行，不知道为什么
     } else {

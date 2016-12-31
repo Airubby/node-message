@@ -24,8 +24,8 @@
                     _.templateSettings = { interpolate: /\{\{(.+?)\}\}/g };
                     let compiled = _.template($("#moban").html());
                     let htmlStr = compiled({ xingming: xingming, liuyan: liuyan, shijian: shijian });
-                    $(htmlStr).insertBefore($("#quanbuliuyan"));
-
+                    //$(htmlStr).insertBefore($("#quanbuliuyan"));
+                    $("#quanbuliuyan").prepend($(htmlStr));
                 }
 
             });
@@ -40,11 +40,32 @@
         let compiled = _.template($("#moban").html());
         for (var i = 0; i < result.resultInfo.length; i++) {
             let htmlStr = compiled({ xingming: result.resultInfo[i].xingming, liuyan: result.resultInfo[i].liuyan, shijian: result.resultInfo[i].shijian });
-            $(htmlStr).insertAfter($("#quanbuliuyan"));
+            //$(htmlStr).insertAfter($("#quanbuliuyan"));
+            $("#quanbuliuyan").append($(htmlStr));
         }
 
 
     });
 
+
+    $(".pageBtn").click(function() {
+        let page = parseInt($(this).attr("data-page"));
+        getData(page);
+        $(this).addClass("active").siblings().removeClass("active");
+    });
+    getData(1);
+
+    function getData(page) {
+        $.get("/info?page=" + (page - 1), function(result) {
+            _.templateSettings = { interpolate: /\{\{(.+?)\}\}/g };
+            let compiled = _.template($("#moban").html());
+            $("#quanbuliuyan").html("");
+            for (var i = 0; i < result.resultInfo.length; i++) {
+                let htmlStr = compiled({ xingming: result.resultInfo[i].xingming, liuyan: result.resultInfo[i].liuyan, shijian: result.resultInfo[i].shijian });
+                //$(htmlStr).insertAfter($("#quanbuliuyan"));
+                $("#quanbuliuyan").append($(htmlStr));
+            }
+        });
+    }
 
 })();

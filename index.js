@@ -14,11 +14,11 @@ app.set("view engine", "ejs");
 //静态
 app.use(express.static("./public"));
 
-app.get("/", function(req, res, next) {
+app.get("/", function(req, res) {
     res.render("index");
 });
 
-app.post("/tijiao", function(req, res, next) {
+app.post("/tijiao", function(req, res) {
     let form = new formidable.IncomingForm();
     form.parse(req, function(err, fields) {
 
@@ -40,11 +40,17 @@ app.post("/tijiao", function(req, res, next) {
 });
 
 //这个页面是给ajax的
-app.get("/info", function(req, res, next) {
-    db.find("liuyanben", null, { "sort": { "shijian": 1 } }, function(err, result) {
+app.get("/info", function(req, res) {
+    let page = parseInt(req.query.page);
+    if (page === NaN) {
+        page = 0;
+    }
+    //shijian：1表示时间向后，-1表示时间向前  排序
+    db.find("liuyanben", null, { "sort": { "shijian": -1 }, "pageNum": 5, "page": page }, function(err, result) {
         res.json({ "resultInfo": result });
     });
 });
+
 
 app.listen(3000, "127.0.0.1", function() {
     console.log("listening 3000");
