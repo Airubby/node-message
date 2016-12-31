@@ -24,7 +24,8 @@ app.post("/tijiao", function(req, res, next) {
 
         db.insertOne("liuyanben", {
             "xingming": fields.xingming,
-            "liuyan": fields.liuyan
+            "liuyan": fields.liuyan,
+            "shijian": new Date()
         }, function(err, result) {
 
             if (err) {
@@ -38,9 +39,9 @@ app.post("/tijiao", function(req, res, next) {
     });
 });
 
-
+//这个页面是给ajax的
 app.get("/info", function(req, res, next) {
-    db.find("liuyanben", null, function(err, result) {
+    db.find("liuyanben", null, { "sort": { "shijian": 1 } }, function(err, result) {
         res.json({ "resultInfo": result });
     });
 });

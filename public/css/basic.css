@@ -8,3 +8,18 @@
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
 }
+
+.list-group h4 {
+    color: #222;
+}
+
+.list-group span {
+    float: right;
+    font-size: 12px;
+    color: #999;
+}
+
+.list-group p {
+    margin: 10px;
+    color: #666;
+}

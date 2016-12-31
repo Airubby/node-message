@@ -35,8 +35,9 @@ exports.find = function(collectionName, json, C, D) {
     } else if (arguments.length == 4) {
         var args = C;
         var callback = D;
-        var limitNum = args.pageNum;
+        var limitNum = parseInt(args.pageNum);
         var skipNum = limitNum * args.page;
+        var sort = args.sort || {};
         //上面这些要用var定义用let定义不行，不知道为什么
     } else {
         throw new Error("find函数的参数个数必须是3个或者4个");
@@ -44,7 +45,7 @@ exports.find = function(collectionName, json, C, D) {
     }
     _connectDB(function(err, db) {
         let result = [];
-        let thisInfo = db.collection(collectionName).find(thisJson).skip(skipNum).limit(limitNum);
+        let thisInfo = db.collection(collectionName).find(thisJson).skip(skipNum).limit(limitNum).sort(sort);
         thisInfo.each(function(err, doc) {
             if (err) {
                 callback(err, null);
