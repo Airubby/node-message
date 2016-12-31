@@ -52,18 +52,19 @@
 			
 		</div>
 		<nav>
-		  <ul class="pagination">
-		    <li>
+		  <ul class="pagination" id="pagination">
+		    <li class="prevbtn">
 		      <a href="javascript:;" aria-label="Previous">
 		        <span aria-hidden="true">&laquo;</span>
 		      </a>
 		    </li>
-		    <li class="active pageBtn" data-page = "1"><a href="javascript:;">1</a></li>
-		    <li class="pageBtn" data-page = "2"><a href="javascript:;">2</a></li>
-		    <li class="pageBtn" data-page = "3"><a href="javascript:;">3</a></li>
-		    <li class="pageBtn" data-page = "4"><a href="javascript:;">4</a></li>
-		    <li class="pageBtn" data-page = "5"><a href="javascript:;">5</a></li>
-		    <li>
+
+			
+		    <%for(var i=1;i<=pageAll;i++){%>
+		    <li class="pageBtn" data-page = "<%=i%>"><a href="javascript:;"><%=i%></a></li>
+		    <%}%>
+
+		    <li class="nextbtn">
 		      <a href="javascript:;" aria-label="Next">
 		        <span aria-hidden="true">&raquo;</span>
 		      </a>

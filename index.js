@@ -2,7 +2,6 @@
 
 const express = require('express');
 const formidable = require('formidable');
-
 const db = require('./model/db');
 
 const app = express();
@@ -15,7 +14,11 @@ app.set("view engine", "ejs");
 app.use(express.static("./public"));
 
 app.get("/", function(req, res) {
-    res.render("index");
+    db.getAll("liuyanben", function(count) {
+        res.render("index", {
+            "pageAll": Math.ceil(count / 5)
+        });
+    });
 });
 
 app.post("/tijiao", function(req, res) {

@@ -47,13 +47,33 @@
 
     });
 
-
+    let nowpage = 1;
+    let pageli = $("#pagination li");
+    let pageAll = pageli.length;
+    $(".pageBtn:first").addClass("active");
     $(".pageBtn").click(function() {
         let page = parseInt($(this).attr("data-page"));
+        nowpage = page;
         getData(page);
         $(this).addClass("active").siblings().removeClass("active");
     });
     getData(1);
+
+    $(".prevbtn").click(function() {
+        if (nowpage > 1) {
+            nowpage--;
+            getData(nowpage);
+            $(pageli[nowpage]).addClass("active").siblings().removeClass("active");
+        }
+    });
+    $(".nextbtn").click(function() {
+        if (nowpage < pageAll - 2) {
+            nowpage++;
+            getData(nowpage);
+            $(pageli[nowpage]).addClass("active").siblings().removeClass("active");
+        }
+    });
+
 
     function getData(page) {
         $.get("/info?page=" + (page - 1), function(result) {
@@ -67,5 +87,8 @@
             }
         });
     }
+
+
+
 
 })();
