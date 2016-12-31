@@ -19,7 +19,16 @@
     color: #999;
 }
 
+.list-group a {
+    float: right;
+}
+
 .list-group p {
     margin: 10px;
     color: #666;
+    overflow: hidden;
+}
+
+#pagination li {
+    display: inline-block;
 }

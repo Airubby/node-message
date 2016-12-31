@@ -3,6 +3,7 @@
 const express = require('express');
 const formidable = require('formidable');
 const db = require('./model/db');
+const ObjectId = require('mongodb').ObjectID;
 
 const app = express();
 
@@ -52,6 +53,14 @@ app.get("/info", function(req, res) {
     db.find("liuyanben", null, { "sort": { "shijian": -1 }, "pageNum": 5, "page": page }, function(err, result) {
         res.json({ "resultInfo": result });
     });
+});
+
+//删除信息
+app.get("/delete", function(req, res, next) {
+    let id = req.query.id;
+    db.deleteMany("liuyanben", { "_id": ObjectId(id) }, function(err, result) {
+        res.redirect("/"); //删除后重定向回来
+    })
 });
 
 

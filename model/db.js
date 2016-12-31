@@ -67,10 +67,21 @@ exports.find = function(collectionName, json, C, D) {
 //查询所有
 exports.getAll = function(collectionName, callback) {
     _connectDB(function(err, db) {
-        let result = db.collection(collectionName).count().then(function(count) {
+        db.collection(collectionName).count().then(function(count) {
             callback(count);
             db.close();
         });
 
     })
 };
+
+
+//删除
+exports.deleteMany = function(collectionName, json, callback) {
+    _connectDB(function(err, db) {
+        db.collection(collectionName).deleteMany(json, function(err, result) {
+            callback(err, result);
+            db.close(); //关闭数据库
+        });
+    });
+}
