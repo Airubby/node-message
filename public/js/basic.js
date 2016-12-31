@@ -59,7 +59,9 @@
     let pageAll = pageli.length - 2;
     let show = 7;
     let begin, end;
-
+    if (pageAll == 0) {
+        pageli.css("display", "none");
+    }
     loop();
 
 
@@ -105,6 +107,12 @@
         }
         for (var i = begin; i < end; i++) {
             $(pageli[i]).css("display", "inline-block");
+        }
+        if (nowpage == 1) {
+            $(".prevbtn").addClass('disabled');
+        }
+        if (nowpage == pageAll) {
+            $(".nextbtn").addClass('disabled');
         }
     }
 
