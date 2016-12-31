@@ -1,6 +1,7 @@
 (function() {
     "use strict"
 
+
     $("#tijiao").on("click", function() {
         $("#shibai").hide();
         $("#chenggong").hide();
@@ -18,10 +19,31 @@
                     $("#shibai").fadeIn();
                 } else if (result.resultInfo == 1) {
                     $("#chenggong").fadeIn();
+
+                    _.templateSettings = { interpolate: /\{\{(.+?)\}\}/g };
+                    let compiled = _.template($("#moban").html());
+                    let htmlStr = compiled({ xingming: xingming, liuyan: liuyan });
+                    $(htmlStr).insertBefore($("#quanbuliuyan"));
+
                 }
-                console.log(result);
+
             });
         }
+
+    });
+
+
+    $.get("/info", function(result) {
+
+        console.log(result);
+
+        _.templateSettings = { interpolate: /\{\{(.+?)\}\}/g };
+        let compiled = _.template($("#moban").html());
+        for (var i = 0; i < result.resultInfo.length; i++) {
+            let htmlStr = compiled({ xingming: result.resultInfo[i].xingming, liuyan: result.resultInfo[i].liuyan });
+            $(htmlStr).insertAfter($("#quanbuliuyan"));
+        }
+
 
     });
 

@@ -24,3 +24,42 @@ exports.insertOne = function(collectionName, json, callback) {
         });
     });
 };
+
+//查找数据
+exports.find = function(collectionName, json, C, D) {
+    let thisJson = json === null ? {} : json;
+    if (arguments.length == 3) {
+        var callback = C;
+        var limitNum = 0;
+        var skipNum = 0;
+    } else if (arguments.length == 4) {
+        var args = C;
+        var callback = D;
+        var limitNum = args.pageNum;
+        var skipNum = limitNum * args.page;
+        //上面这些要用var定义用let定义不行，不知道为什么
+    } else {
+        throw new Error("find函数的参数个数必须是3个或者4个");
+        return;
+    }
+    _connectDB(function(err, db) {
+        let result = [];
+        let thisInfo = db.collection(collectionName).find(thisJson).skip(skipNum).limit(limitNum);
+        thisInfo.each(function(err, doc) {
+            if (err) {
+                callback(err, null);
+                db.close();
+                return;
+            }
+            if (doc != null) {
+                result.push(doc); //放入结果数组
+            } else {
+                //遍历结束，没有更多的文档
+                callback(null, result);
+                db.close();
+            }
+        });
+    });
+
+
+}
